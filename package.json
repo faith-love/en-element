@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "pnpm --filter @en-element/play dev",
+    "docs:dev": "pnpm --filter @en-element/docs dev",
+    "docs:build": "pnpm --filter @en-element/docs build",
+    "test": "echo \"todo\""
   },
   "keywords": [],
   "author": "",
@@ -28,7 +31,7 @@
   "dependencies": {
     "lodash-es": "^4.17.21",
     "vue": "^3.4.19",
-    "en-element": "workspace",
+    "en-element": "workspace:*",
     "@en-element/hooks": "workspace:*",
     "@en-element/utils": "workspace:*",
     "@en-element/theme": "workspace:*"

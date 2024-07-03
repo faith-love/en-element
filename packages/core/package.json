@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@toy-element/components": "workspace:*"
+    "@en-element/components": "workspace:*"
   },
   "keywords": [],
   "author": "",

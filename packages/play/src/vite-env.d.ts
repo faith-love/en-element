@@ -2,7 +2,7 @@ import { meta, StoryObj, ArgTypes } from '@storybook/vue3';
 
 import { fn } from '@storybook/test';
 
-import { EnButton } from 'en-element';
+import { EnButton } from 'en-ui';
 
 type Story = StoryObj<typeof EnButton> & { argsTypes: ArgTypes };
 

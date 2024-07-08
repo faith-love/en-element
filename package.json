@@ -1,14 +1,14 @@
 {
-  "name": "@en-element/workspace",
+  "name": "@en-ui/workspace",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm --filter @en-element/play dev",
-    "story": "pnpm --filter @en-element/play storybook",
-    "docs:dev": "pnpm --filter @en-element/docs dev",
-    "docs:build": "pnpm --filter @en-element/docs build",
-    "test": "pnpm --filter @en-element/components test"
+    "dev": "pnpm --filter @en-ui/play dev",
+    "story": "pnpm --filter @en-ui/play storybook",
+    "docs:dev": "pnpm --filter @en-ui/docs dev",
+    "docs:build": "pnpm --filter @en-ui/docs build",
+    "test": "pnpm --filter @en-ui/components test"
   },
   "keywords": [],
   "author": "",
@@ -35,9 +35,9 @@
   "dependencies": {
     "lodash-es": "^4.17.21",
     "vue": "^3.4.19",
-    "en-element": "workspace:*",
-    "@en-element/hooks": "workspace:*",
-    "@en-element/utils": "workspace:*",
-    "@en-element/theme": "workspace:*"
+    "en-ui": "workspace:*",
+    "@en-ui/hooks": "workspace:*",
+    "@en-ui/utils": "workspace:*",
+    "@en-ui/theme": "workspace:*"
   }
 }

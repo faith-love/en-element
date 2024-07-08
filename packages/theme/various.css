@@ -1,0 +1,74 @@
+:root {
+  /* colors */
+  --en-color-white: #ffffff;
+  --en-color-black: #000000;
+  --colors: (primary: #409eff, success: #67c23a, warning: #e6a23c, danger: #f56c6c, info: #909399);
+  --en-bg-color: #ffffff;
+  --en-bg-color-page: #f2f3f5;
+  --en-bg-color-overlay: #ffffff;
+  --en-text-color-primary: #303133;
+  --en-text-color-regular: #606266;
+  --en-text-color-secondary: #909399;
+  --en-text-color-placeholder: #a8abb2;
+  --en-text-color-disabled: #c0c4cc;
+  --en-border-color: #dcdfe6;
+  --en-border-color-light: #e4e7ed;
+  --en-border-color-lighter: #ebeef5;
+  --en-border-color-extra-light: #f2f6fc;
+  --en-border-color-dark: #d4d7de;
+  --en-border-color-darker: #cdd0d6;
+  --en-fill-color: #f0f2f5;
+  --en-fill-color-light: #f5f7fa;
+  --en-fill-color-lighter: #fafafa;
+  --en-fill-color-extra-light: #fafcff;
+  --en-fill-color-dark: #ebedf0;
+  --en-fill-color-darker: #e6e8eb;
+  --en-fill-color-blank: #ffffff;
+
+  @each $val,
+  $color in var(--colors) {
+    --en-color-$(val): $(color);
+
+    @for $i from 3 to 9 {
+      --en-color-$(val)-light-$(i): mix(#fff, $(color), 0.$(i));
+    }
+
+    --en-color-$(val)-dark-2: mix(#000, $(color), 0.2);
+  }
+
+  /* border */
+  --en-border-width: 1px;
+  --en-border-style: solid;
+  --en-border-color-hover: var(--en-text-color-disabled);
+  --en-border: var(--en-border-width) var(--en-border-style) var(--en-border-color);
+  --en-border-radius-base: 4px;
+  --en-border-radius-small: 2px;
+  --en-border-radius-round: 20px;
+  --en-border-radius-circle: 100%;
+
+  /*font*/
+  --en-font-size-extra-large: 20px;
+  --en-font-size-large: 18px;
+  --en-font-size-medium: 16px;
+  --en-font-size-base: 14px;
+  --en-font-size-small: 13px;
+  --en-font-size-extra-small: 12px;
+  --en-font-family: 'Helvetica Neue',
+  Helvetica,
+  'PingFang SC',
+  'Hiragino Sans GB',
+  'Microsoft YaHei',
+  '\5fae\8f6f\96c5\9ed1',
+  Arial,
+  sans-serif;
+  --en-font-weight-primary: 500;
+
+  /*disabled*/
+  --en-disabled-bg-color: var(--en-fill-color-light);
+  --en-disabled-text-color: var(--en-text-color-placeholder);
+  --en-disabled-border-color: var(--en-border-color-light);
+
+  /*animation*/
+  --en-transition-duration: 0.4s;
+  --en-transition-duration-fast: 0.2s;
+}

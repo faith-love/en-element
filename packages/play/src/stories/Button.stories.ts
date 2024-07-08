@@ -1,6 +1,6 @@
 import type { Meta, StoryObj, ArgTypes } from '@storybook/vue3';
 import { fn, within, userEvent, expect } from '@storybook/test';
-import { EnButton } from 'en-ui';
+import { EnButton, EnButtonGroup } from 'en-ui';
 // import 'en-ui/dist/theme/Button.css';
 
 type Story = StoryObj<typeof EnButton> & { argTypes?: ArgTypes };
@@ -8,7 +8,7 @@ type Story = StoryObj<typeof EnButton> & { argTypes?: ArgTypes };
 const meta: Meta<typeof EnButton> = {
   title: 'Example/Button',
   component: EnButton,
-  // subcomponents: { ButtonGroup: ErButtonGroup },
+  subcomponents: { ButtonGroup: EnButtonGroup },
   tags: ['autodocs'],
   argTypes: {
     type: {
@@ -74,7 +74,7 @@ export const Default: Story & { args: { content: string } } = {
       return { args };
     },
     template: container(
-      `<en-button v-bind="args">{{args.content}}</en-button>`
+      `<En-button v-bind="args">{{args.content}}</En-button>`
     ),
   }),
   play: async ({ canvasElement, args, step }) => {
@@ -97,7 +97,7 @@ export const Circle: Story = {
       return { args };
     },
     template: container(`
-      <en-button circle v-bind="args">{{args.content}}</en-button>
+      <en-button circle v-bind="args"/>
     `),
   }),
   play: async ({ canvasElement, args, step }) => {
@@ -106,6 +106,59 @@ export const Circle: Story = {
       await userEvent.click(canvas.getByRole('button'));
     });
 
+    expect(args.onClick).toHaveBeenCalled();
+  },
+};
+
+Circle.parameters = {};
+
+export const Group: Story & { args: { content1: string; content2: string } } = {
+  argTypes: {
+    groupType: {
+      control: { type: 'select' },
+      options: ['primary', 'success', 'warning', 'danger', 'info', ''],
+    },
+    groupSize: {
+      control: { type: 'select' },
+      options: ['large', 'default', 'small', ''],
+    },
+    groupDisabled: {
+      control: 'boolean',
+    },
+    content1: {
+      control: { type: 'text' },
+      defaultValue: 'Button1',
+    },
+    content2: {
+      control: { type: 'text' },
+      defaultValue: 'Button2',
+    },
+  },
+  args: {
+    round: true,
+    content1: 'Button1',
+    content2: 'Button2',
+  },
+  render: (args) => ({
+    components: { EnButton, EnButtonGroup },
+    setup() {
+      return { args };
+    },
+    template: container(`
+       <en-button-group :type="args.groupType" :size="args.groupSize" :disabled="args.groupDisabled">
+         <en-button v-bind="args">{{args.content1}}</en-button>
+         <en-button v-bind="args">{{args.content2}}</en-button>
+       </en-button-group>
+    `),
+  }),
+  play: async ({ canvasElement, args, step }) => {
+    const canvas = within(canvasElement);
+    await step('click btn1', async () => {
+      await userEvent.click(canvas.getByText('Button1'));
+    });
+    await step('click btn2', async () => {
+      await userEvent.click(canvas.getByText('Button2'));
+    });
     expect(args.onClick).toHaveBeenCalled();
   },
 };

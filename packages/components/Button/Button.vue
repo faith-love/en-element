@@ -9,10 +9,12 @@
  * constants.ts
  */
 import type { ButtonProps, ButtonEmits, ButtonInstance } from './types';
-import ErIcon from '../Icon/Icon.vue';
-import { ref, computed } from 'vue';
+import EnIcon from '../Icon/Icon.vue';
+import { ref, computed, inject } from 'vue';
+import { BUTTON_GROUP_CTX_KEY } from './constant';
 import { throttle } from 'lodash-es';
 defineOptions({ name: 'EnButton' });
+
 const props = withDefaults(defineProps<ButtonProps>(), {
   tag: 'button',
   nativeType: 'button',
@@ -24,6 +26,11 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 
 const emits = defineEmits<ButtonEmits>();
 const slots = defineSlots();
+const ctx = inject(BUTTON_GROUP_CTX_KEY, void 0);
+
+const size = computed(() => ctx?.size ?? props?.size ?? '');
+const type = computed(() => ctx?.type ?? props?.type ?? '');
+const disabled = computed(() => ctx?.disabled || props?.disabled || false);
 
 const _ref = ref<HTMLButtonElement>();
 const iconStyle = computed(() => ({
@@ -33,7 +40,9 @@ const handBtnClick = (e: MouseEvent) => {
   emits('click', e);
 };
 
-const handBtnThrottle = throttle(handBtnClick, props.throttleDuration || 1000);
+const handBtnThrottle = throttle(handBtnClick, props.throttleDuration || 1000, {
+  trailing: false,
+});
 
 defineExpose<ButtonInstance>({
   ref: _ref,
@@ -45,7 +54,6 @@ defineExpose<ButtonInstance>({
     :is="tag"
     ref="_ref"
     :autofocus="autofocus || void 0"
-    :type="tag === 'button' ? nativeType : void 0"
     :disabled="disabled || loading ? true : void 0"
     :class="[
       'en-button',
@@ -65,16 +73,16 @@ defineExpose<ButtonInstance>({
   >
     <template v-if="loading">
       <slot name="loading">
-        <ErIcon
+        <EnIcon
           class="loading-icon"
           :style="iconStyle"
-          :icon="loadingIcon || 'spinner'"
+          :icon="loadingIcon ?? 'spinner'"
           size="1x"
           spin
         />
       </slot>
     </template>
-    <ErIcon v-if="icon && !loading" :style="iconStyle" :icon="icon" size="1x" />
+    <EnIcon v-if="icon && !loading" :style="iconStyle" :icon="icon" size="1x" />
     <slot></slot>
   </component>
 </template>
